@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class Bonus_Controller : MonoBehaviour
 {
+    [SerializeField] private SocketIOManager socketmanager;
+
     // Start is called before the first frame update
     [SerializeField] private Button[] chest;
     [SerializeField] private ImageAnimation[] chestAnim;
@@ -43,12 +45,12 @@ public class Bonus_Controller : MonoBehaviour
         // StartBonusGame(Fakeresult);
     }
 
-    internal void StartBonusGame(List<double> result)
+    internal void StartBonusGame()
     {
-        for (int i = 0; i < result.Count; i++)
-        {
-            resultData.Add(result[i]);
-        }
+        //for (int i = 0; i < result.Count; i++)
+        //{
+        //    resultData.Add(result[i]);
+        //}
 
         audioController.StopBgAudio();
         audioController.StopWLAaudio();
@@ -95,16 +97,18 @@ public class Bonus_Controller : MonoBehaviour
         openIndex.Add(index);
         chest[index].interactable = false;
         bool gameFinishied = false;
+
+        socketmanager.OnBonusCollect(index);
         chestAnim[index].transform.DOShakePosition(1f, new Vector3(15, 0, 0), 30, 90, true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(()=> socketmanager.isResultdone);
         chestAnim[index].StartAnimation();
         // audioController.StopApinBonusAudio();
 
-        if (resultData[openCount] > 0)
+        if (socketmanager.bonusData.payload.payout > 0)
         {
             audioController.PlayWLAudio("bonuswin");
-            reward_text[index].text = "+ " + (resultData[openCount] * slotBehaviour.GetCurrentbetperLine()).ToString("f2");
-            winAmount += (resultData[openCount] * slotBehaviour.GetCurrentbetperLine());
+            reward_text[index].text = socketmanager.bonusData.payload.winAmount.ToString("f2");
+            winAmount += socketmanager.bonusData.payload.winAmount;
             // reward_text[index].text = "+ " + (resultData[openCount] * 1).ToString("f2");
             // winAmount += (resultData[openCount] * 1);
         }

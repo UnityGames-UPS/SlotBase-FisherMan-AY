@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textureArray:
+  - {fileID: 21300000, guid: c773ff7ee026f42d8b87b0135e3232b5, type: 3}
   - {fileID: 21300000, guid: ef4d900472c6e4e7698cf5c0014fed2d, type: 3}
   - {fileID: 21300000, guid: f9b5e619fde614ae99236c9b6ee4dfce, type: 3}
   - {fileID: 21300000, guid: f9b5e619fde614ae99236c9b6ee4dfce, type: 3}
