@@ -12,9 +12,6 @@ using System.Runtime.InteropServices;
 
 public class SocketIOManager : MonoBehaviour
 {
-
-    [DllImport("__Internal")]
-    private static extern void delayHideLoadingScreen();
     [SerializeField] private SlotBehaviour slotManager;
     [SerializeField] private UIManager uIManager;
 
@@ -32,8 +29,7 @@ public class SocketIOManager : MonoBehaviour
     internal List<string> bonusdata = null;
     //WebSocket currentSocket = null;
     internal bool isResultdone = false;
-    [SerializeField]
-    internal JSHandler _jsManager;
+    
 
     private SocketManager manager;
     [SerializeField] internal JSFunctCalls JSManager;
@@ -243,23 +239,17 @@ public class SocketIOManager : MonoBehaviour
 
     internal void CloseSocket()
     {
-        SendDataWithNamespace("EXIT");
-        // CloseSocketMesssage("EXIT");
-        // DOVirtual.DelayedCall(0.1f, () =>
-        // {
-        //     if (this.manager != null)
-        //     {
-        //         Debug.Log("Dispose my Socket");
-        //         this.manager.Close();
-        //     }
-        // });
+        SendDataWithNamespace("game:exit");
+#if UNITY_WEBGL && !UNITY_EDITOR
+        JSManager.SendCustomMessage("OnExit");
+#endif
     }
 
 
     internal void ReactNativeCallOnFailedToConnect() //BackendChanges
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-    JSManager.SendCustomMessage("onExit");
+    JSManager.SendCustomMessage("OnExit");
 #endif
     }
 
@@ -338,7 +328,7 @@ public class SocketIOManager : MonoBehaviour
                         this.manager.Close();
                     }
 #if UNITY_WEBGL && !UNITY_EDITOR
-                        JSManager.SendCustomMessage("onExit");
+                        JSManager.SendCustomMessage("OnExit");
 #endif
                     break;
                 }
