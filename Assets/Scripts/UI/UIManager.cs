@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Popus UI")]
     [SerializeField] private GameObject MainPopup_Object;
-    
+
 
     [Header("Paytable Popup")]
     [SerializeField] private Button Paytable_button;
@@ -77,7 +77,9 @@ public class UIManager : MonoBehaviour
     [Header("disconnection popup")]
     [SerializeField] private GameObject DisconnectPopupObject;
     [SerializeField] private Button CloseDisconnect_Button;
-
+    [Header("Reconection Popup")]
+    [SerializeField]
+    private GameObject ReconectingPopup_Object;
     [Header("low balance popup")]
     [SerializeField] private Button Close_Button;
     [SerializeField] private GameObject LowBalancePopup_Object;
@@ -87,12 +89,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject ADPopup_Object;
 
     [SerializeField] private Button m_AwakeGameButton;
+
+    [SerializeField] internal GameObject RaycastBlocker;
+
+
     private bool isExit = false;
 
 
     private bool isMusic = true;
     private bool isSound = true;
-        private Tween WinPopupTextTween;
+    private Tween WinPopupTextTween;
     private Tween ClosePopupTween;
 
     //COMPLETED: slot add splash screen
@@ -138,10 +144,10 @@ public class UIManager : MonoBehaviour
         if (GameExit_Button) GameExit_Button.onClick.AddListener(delegate { OpenPopup(QuitPopupObject); });
 
         if (no_Button) no_Button.onClick.RemoveAllListeners();
-        if (no_Button) no_Button.onClick.AddListener(delegate { if(!isExit){ClosePopup(QuitPopupObject);}  });
-        
+        if (no_Button) no_Button.onClick.AddListener(delegate { if (!isExit) { ClosePopup(QuitPopupObject); } });
+
         if (ExitCancel_Button) ExitCancel_Button.onClick.RemoveAllListeners();
-        if (ExitCancel_Button) ExitCancel_Button.onClick.AddListener(delegate { if(!isExit){ClosePopup(QuitPopupObject);}  });
+        if (ExitCancel_Button) ExitCancel_Button.onClick.AddListener(delegate { if (!isExit) { ClosePopup(QuitPopupObject); } });
 
         if (yes_Button) yes_Button.onClick.RemoveAllListeners();
         if (yes_Button) yes_Button.onClick.AddListener(CallOnExitFunction);
@@ -164,22 +170,22 @@ public class UIManager : MonoBehaviour
         if (Setting_exit_button) Setting_exit_button.onClick.AddListener(delegate { ClosePopup(settingObject); });
 
         if (SoundON_Button) SoundON_Button.onClick.RemoveAllListeners();
-        if (SoundON_Button) SoundON_Button.onClick.AddListener(delegate{ToggleSound(true);});
+        if (SoundON_Button) SoundON_Button.onClick.AddListener(delegate { ToggleSound(true); });
 
         if (SoundOff_Button) SoundOff_Button.onClick.RemoveAllListeners();
-        if (SoundOff_Button) SoundOff_Button.onClick.AddListener(delegate{ToggleSound(false);});
+        if (SoundOff_Button) SoundOff_Button.onClick.AddListener(delegate { ToggleSound(false); });
 
         if (MusicON_Button) MusicON_Button.onClick.RemoveAllListeners();
-        if (MusicON_Button) MusicON_Button.onClick.AddListener(delegate{ToggleMusic(true);});
+        if (MusicON_Button) MusicON_Button.onClick.AddListener(delegate { ToggleMusic(true); });
 
         if (MusicOff_Button) MusicOff_Button.onClick.RemoveAllListeners();
-        if (MusicOff_Button) MusicOff_Button.onClick.AddListener(delegate{ToggleMusic(false);});
+        if (MusicOff_Button) MusicOff_Button.onClick.AddListener(delegate { ToggleMusic(false); });
 
         if (CloseAD_Button) CloseAD_Button.onClick.RemoveAllListeners();
         if (CloseAD_Button) CloseAD_Button.onClick.AddListener(CallOnExitFunction);
 
-                if(SkipWinAnimation) SkipWinAnimation.onClick.RemoveAllListeners();
-        if(SkipWinAnimation) SkipWinAnimation.onClick.AddListener(SkipWin);
+        if (SkipWinAnimation) SkipWinAnimation.onClick.RemoveAllListeners();
+        if (SkipWinAnimation) SkipWinAnimation.onClick.AddListener(SkipWin);
 
         ToggleMusic(true);
         ToggleMusic(true);
@@ -190,7 +196,7 @@ public class UIManager : MonoBehaviour
 
 
 
-//COMPLETED: slot add socket in loading splash screen
+    //COMPLETED: slot add socket in loading splash screen
     private IEnumerator LoadingRoutine()
     {
         float fillAmount = 0.7f;
@@ -237,18 +243,18 @@ public class UIManager : MonoBehaviour
         if (WinPopup_Object) WinPopup_Object.SetActive(true);
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
 
-        WinPopupTextTween=DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
+        WinPopupTextTween = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
         {
 
             if (Win_Text) Win_Text.text = initAmount.ToString("f3");
-            
+
         });
 
-        ClosePopupTween=DOVirtual.DelayedCall(6f, () =>
+        ClosePopupTween = DOVirtual.DelayedCall(6f, () =>
         {
 
             ClosePopup(WinPopup_Object);
-            Win_Text.text="";
+            Win_Text.text = "";
 
             slotManager.CheckPopups = false;
         });
@@ -304,22 +310,25 @@ public class UIManager : MonoBehaviour
     private void ResetInfoScreens()
     {
         CurrentIndex = 0;
-        for(int i = 0; i < paytableList.Length; i++)
+        for (int i = 0; i < paytableList.Length; i++)
         {
             paytableList[i].SetActive(false);
         }
         paytableList[CurrentIndex].SetActive(true);
     }
 
-        void SkipWin(){
+    void SkipWin()
+    {
         Debug.Log("Skip win called");
-        if(ClosePopupTween!=null){
+        if (ClosePopupTween != null)
+        {
             ClosePopupTween.Kill();
-            ClosePopupTween=null;
+            ClosePopupTween = null;
         }
-        if(WinPopupTextTween!=null){
+        if (WinPopupTextTween != null)
+        {
             WinPopupTextTween.Kill();
-            WinPopupTextTween=null;
+            WinPopupTextTween = null;
         }
         ClosePopup(WinPopup_Object);
         slotManager.CheckPopups = false;
@@ -328,7 +337,7 @@ public class UIManager : MonoBehaviour
     void OnMenuClick()
     {
         isOpen = !isOpen;
-        if(audioController) audioController.PlayButtonAudio();
+        if (audioController) audioController.PlayButtonAudio();
 
         if (isOpen)
         {
@@ -378,7 +387,7 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
-            
+
             if (paylines.symbols[i].name.ToUpper() == "SCATTER")
             {
                 if (Scatter_Text) Scatter_Text.text = paylines.symbols[i].description.ToString();
@@ -396,19 +405,28 @@ public class UIManager : MonoBehaviour
                 if (Wild_Text) Wild_Text.text = paylines.symbols[i].description.ToString();
             }
         }
-    
+
     }
 
 
     internal void DisconnectionPopup()
     {
-        Debug.Log("entered disconnection popup");
-        //ClosePopup(ReconnectPopup_Object);
+        //if (isReconnection)
+        //{
+        //    OpenPopup(ReconnectPopup_Object);
+        //}
+        //else
+        //{
+        //    ClosePopup(ReconnectPopup_Object);
         if (!isExit)
         {
             OpenPopup(DisconnectPopupObject);
         }
-
+        //}
+    }
+    internal void ReconnectionPopup()
+    {
+        OpenPopup(ReconectingPopup_Object);
     }
 
     private void CallOnExitFunction()
@@ -418,20 +436,32 @@ public class UIManager : MonoBehaviour
         slotManager.CallCloseSocket();
         // Application.ExternalCall("window.parent.postMessage", "onExit", "*");
     }
+    internal void CheckAndClosePopups()
+    {
+
+        if (ReconectingPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(ReconectingPopup_Object);
+        }
+        if (DisconnectPopupObject.activeInHierarchy)
+        {
+            ClosePopup(DisconnectPopupObject);
+        }
+    }
 
     private void ToggleMusic(bool isMusic)
     {
         // isMusic = !isMusic;
         if (isMusic)
         {
-            if (MusicON_Button) MusicON_Button.interactable=false;
-            if (MusicOff_Button) MusicOff_Button.interactable=true;
+            if (MusicON_Button) MusicON_Button.interactable = false;
+            if (MusicOff_Button) MusicOff_Button.interactable = true;
             audioController.ToggleMute(false, "bg");
         }
         else
         {
-            if (MusicON_Button) MusicON_Button.interactable=true;
-            if (MusicOff_Button) MusicOff_Button.interactable=false;
+            if (MusicON_Button) MusicON_Button.interactable = true;
+            if (MusicOff_Button) MusicOff_Button.interactable = false;
 
             audioController.ToggleMute(true, "bg");
         }
@@ -447,8 +477,8 @@ public class UIManager : MonoBehaviour
             //if (SoundOn_Object) SoundOn_Object.SetActive(true);
             //if (SoundOff_Object) SoundOff_Object.SetActive(false);
 
-            if (SoundON_Button) SoundON_Button.interactable=false;
-            if(SoundOff_Button) SoundOff_Button.interactable=true;
+            if (SoundON_Button) SoundON_Button.interactable = false;
+            if (SoundOff_Button) SoundOff_Button.interactable = true;
             if (audioController) audioController.ToggleMute(false, "button");
             if (audioController) audioController.ToggleMute(false, "wl");
         }
@@ -456,8 +486,8 @@ public class UIManager : MonoBehaviour
         {
             //if (SoundOn_Object) SoundOn_Object.SetActive(false);
             //if (SoundOff_Object) SoundOff_Object.SetActive(true);
-            if (SoundON_Button) SoundON_Button.interactable=true;
-            if(SoundOff_Button) SoundOff_Button.interactable=false;
+            if (SoundON_Button) SoundON_Button.interactable = true;
+            if (SoundOff_Button) SoundOff_Button.interactable = false;
 
             if (audioController) audioController.ToggleMute(true, "button");
             if (audioController) audioController.ToggleMute(true, "wl");
