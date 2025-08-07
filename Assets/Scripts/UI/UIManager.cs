@@ -360,27 +360,27 @@ public class UIManager : MonoBehaviour
 
     }
 
-    internal void InitialiseUIData(Paylines symbolsText)
+    internal void InitialiseUIData(Paylines symbolsText, double multi)
     {
-        PopulateSymbolsPayout(symbolsText);
+        PopulateSymbolsPayout(symbolsText, multi);
     }
 
-    private void PopulateSymbolsPayout(Paylines paylines)
+    private void PopulateSymbolsPayout(Paylines paylines, double multi)
     {
         for (int i = 0; i < SymbolsText.Length; i++)
         {
             string text = null;
             if (paylines.symbols[i].multiplier[0] != 0)
             {
-                text += "5x - " + paylines.symbols[i].multiplier[0] + "x";
+                text += "5x - " + (paylines.symbols[i].multiplier[0] * multi).ToString();
             }
             if (paylines.symbols[i].multiplier[1] != 0)
             {
-                text += "\n4x - " + paylines.symbols[i].multiplier[1] + "x";
+                text += "\n4x - " + (paylines.symbols[i].multiplier[1] * multi).ToString();
             }
             if (paylines.symbols[i].multiplier[2] != 0)
             {
-                text += "\n3x - " + paylines.symbols[i].multiplier[2] + "x";
+                text += "\n3x - " + (paylines.symbols[i].multiplier[2] * multi).ToString();
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
         }

@@ -4612,7 +4612,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301287304
 MonoBehaviour:
@@ -7710,7 +7710,7 @@ MonoBehaviour:
   bonusdata: []
   JSManager: {fileID: 1182098372}
   TestSocketURI: http://localhost:5000/
-  TestToken: 198fc002fc514a18be58adccf3a10a45
+  TestToken: 37a2fd9481d944c2a8ad157568a9d5e6
 --- !u!1 &509991482
 GameObject:
   m_ObjectHideFlags: 0
@@ -13525,7 +13525,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &963083418
 MonoBehaviour:
@@ -15078,7 +15078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1111591601
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16237,7 +16237,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1188988256
 MonoBehaviour:
@@ -18798,7 +18798,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1326965053
 MonoBehaviour:
@@ -20287,7 +20287,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1427093158
 MonoBehaviour:
@@ -30331,7 +30331,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2042083514
 MonoBehaviour:
@@ -31967,7 +31967,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171, y: 0}
-  m_SizeDelta: {x: 160, y: 170}
+  m_SizeDelta: {x: 184, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102487540
 MonoBehaviour:

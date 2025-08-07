@@ -290,6 +290,7 @@ public class SlotBehaviour : MonoBehaviour
         if (TotalBet_text) TotalBet_text.text = (SocketManager.InitialData.bets[BetCounter] * SocketManager.InitialData.lines.Count).ToString();
         if (BetPerLine_text) BetPerLine_text.text = SocketManager.InitialData.bets[BetCounter].ToString();
         // Comparebalance();
+        uIManager.InitialiseUIData(SocketManager.UIData.paylines, SocketManager.InitialData.bets[BetCounter]);
     }
 
 
@@ -335,6 +336,7 @@ public class SlotBehaviour : MonoBehaviour
         if (TotalBet_text) TotalBet_text.text = currentTotalBet.ToString();
         if (BetPerLine_text) BetPerLine_text.text = SocketManager.InitialData.bets[BetCounter].ToString();
         // Comparebalance();
+        uIManager.InitialiseUIData(SocketManager.UIData.paylines, SocketManager.InitialData.bets[BetCounter]);
     }
 
 
@@ -352,7 +354,7 @@ public class SlotBehaviour : MonoBehaviour
         if (balance_text) balance_text.text = currentbalance.ToString("f3");
         Debug.Log("my bets is " + currentbalance);
         if (BetPerLine_text) BetPerLine_text.text = SocketManager.InitialData.bets[BetCounter].ToString();
-        uIManager.InitialiseUIData(SocketManager.UIData.paylines);
+        uIManager.InitialiseUIData(SocketManager.UIData.paylines, SocketManager.InitialData.bets[0]);
         Comparebalance();
     }
 
@@ -553,13 +555,17 @@ public class SlotBehaviour : MonoBehaviour
             bonus_Controller.FinishBonusGame(ref CheckPopups);
 
         }
-        else if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 10 && SocketManager.ResultData.payload.winAmount < currentTotalBet * 15 && SocketManager.ResultData.jackpot.isTriggered)
+        else if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 5 && SocketManager.ResultData.payload.winAmount < currentTotalBet * 10 && SocketManager.ResultData.jackpot.isTriggered)
         {
             uIManager.PopulateWin(1, SocketManager.ResultData.payload.winAmount);
         }
-        else if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 15 && SocketManager.ResultData.payload.winAmount < currentTotalBet * 20 && SocketManager.ResultData.jackpot.isTriggered)
+        else if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 10 && SocketManager.ResultData.payload.winAmount < currentTotalBet * 15 && SocketManager.ResultData.jackpot.isTriggered)
         {
             uIManager.PopulateWin(2, SocketManager.ResultData.payload.winAmount);
+        }
+        else if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 15 && SocketManager.ResultData.payload.winAmount < currentTotalBet * 20 && SocketManager.ResultData.jackpot.isTriggered)
+        {
+            uIManager.PopulateWin(3, SocketManager.ResultData.payload.winAmount);
         }
         else if (SocketManager.ResultData.jackpot.isTriggered)
         {

@@ -398,7 +398,7 @@ public class SocketIOManager : MonoBehaviour
                     }
                     else
                     {
-                        RefreshUI();
+                        RefreshUI(InitialData.bets[0]);
                     }
                     break;
                 }
@@ -435,9 +435,9 @@ public class SocketIOManager : MonoBehaviour
         }
     }
 
-    private void RefreshUI()
+    internal void RefreshUI(double current)
     {
-        uIManager.InitialiseUIData(UIData.paylines);
+        uIManager.InitialiseUIData(UIData.paylines, current);
     }
 
     private void PopulateSlotSocket(List<string> LineIds)
