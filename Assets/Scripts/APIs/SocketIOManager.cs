@@ -227,6 +227,7 @@ public class SocketIOManager : MonoBehaviour
     private void OnDisconnected() //Back2 Start
     {
         Debug.LogWarning("⚠️ Disconnected from server.");
+        uIManager.DisconnectionPopup();
         isConnected = false;
         ResetPingRoutine();
     } //Back2 end
